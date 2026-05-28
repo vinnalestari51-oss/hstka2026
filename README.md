@@ -2,316 +2,606 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Kolektif Hasil Tes Kemampuan Akademik 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Hasil Tes Kemampuan Akademik 2026 - SMPN 1 Lingga</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --primary: #1e3a8a;
-            --primary-light: #3b82f6;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --background: #f8fafc;
-            --text-main: #1e293b;
-        }
-
+        /* --- RESET & GLOBAL STYLES --- */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--background);
-            color: var(--text-main);
+            background-color: #f0f7ff;
+            color: #1e293b;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             min-height: 100vh;
-            padding: 20px;
+            overflow-x: hidden;
         }
 
-        .app-container {
+        /* --- CONTAINER MOBILE-FIRST (MAX 440PX) --- */
+        .container-mobile {
             width: 100%;
-            max-width: 500px;
-            background: #ffffff;
-            border-radius: 24px;
-            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.08);
-            overflow: hidden;
+            max-width: 440px;
+            min-height: 100vh;
+            background-color: #f8fafc;
+            position: relative;
+            padding: 24px 20px 100px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
             display: flex;
             flex-direction: column;
-            min-height: 600px;
+            gap: 20px;
         }
 
-        /* Header Aplikasi */
-        .app-header {
-            background: linear-gradient(135deg, var(--primary), #0f172a);
+        /* --- UTILITY CLASS: MATERIAL 3 EXPRESSIVE GLASS --- */
+        .m3-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.04);
+        }
+
+        /* --- HEADER BRANDING --- */
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 4px;
+        }
+
+        .header-brand .icon-edu {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #ffffff;
-            padding: 24px;
-            text-align: center;
-        }
-        .app-header h1 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            line-height: 1.4;
-        }
-        .app-header p {
-            font-size: 0.8rem;
-            opacity: 0.8;
-            margin-top: 4px;
+            font-size: 20px;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
         }
 
-        /* Konten Utama */
-        .app-content {
-            flex: 1;
-            padding: 24px;
+        .header-brand h1 {
+            font-size: 16px;
+            font-weight: 800;
+            color: #1e3a8a;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-brand p {
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        /* --- APP PAGES STATE MANAGEMENT --- */
+        .app-page {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .app-page.active {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- FIXED BOTTOM NAVBAR --- */
+        .bottom-navbar {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 440px;
+            height: 72px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(226, 232, 240, 0.8);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 999;
+            padding: 0 12px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 64px;
+            height: 100%;
+            color: #64748b;
+            transition: all 0.25s ease;
             position: relative;
         }
 
-        .app-page {
-            display: none;
-        }
-        .app-page.active {
-            display: block;
+        .nav-item i {
+            font-size: 20px;
+            transition: transform 0.2s ease;
         }
 
-        /* Glassmorphism Box */
-        .m3-glass {
-            background: #f1f5f9;
-            border-radius: 16px;
-            padding: 20px;
+        .nav-item span {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        .nav-item.active {
+            color: #2563eb;
+        }
+
+        .nav-item.active i {
+            transform: translateY(-2px);
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 28px;
+            height: 4px;
+            background-color: #2563eb;
+            border-radius: 0 0 4px 4px;
+        }
+
+        /* --- KONTEN LAMAN: HOME (STATISTIK ANONIM) --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 16px;
             border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .stat-card .label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-card .value {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1e293b;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* CUSTOM CSS MANUAL PROGRESS BAR (GRAFIK DISTRIBUSI) */
+        .chart-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .chart-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .chart-label-container {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .bar-container {
+            width: 100%;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .bar-baik { background: linear-gradient(90deg, #10b981, #34d399); }
+        .bar-memadai { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+        .bar-kurang { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+
+        /* --- KONTEN LAMAN: NILAIKU (PENCARIAN AMPLUP) --- */
+        .search-box {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
 
         .search-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--primary);
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e3a8a;
+            text-align: center;
+            line-height: 1.4;
         }
 
-        /* Input Wrapper */
         .input-wrapper {
             position: relative;
-            display: flex;
-            align-items: center;
-            background: #ffffff;
-            border: 2px solid #cbd5e1;
-            border-radius: 12px;
-            padding: 0 14px;
-            transition: all 0.3s ease;
+            width: 100%;
         }
-        .input-wrapper:focus-within {
-            border-color: var(--primary-light);
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
-        }
+
         .input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
             color: #94a3b8;
-            margin-right: 10px;
-            font-size: 1.1rem;
+            font-size: 16px;
         }
+
         .input-nisn {
             width: 100%;
-            border: none;
+            height: 54px;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 0 16px 0 46px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1e293b;
             outline: none;
-            padding: 14px 0;
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--text-main);
-        }
-        /* Menghilangkan panah spinner input number */
-        .input-nisn::-webkit-outer-spin-button,
-        .input-nisn::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
+            transition: all 0.2s ease;
         }
 
-        /* Tombol Utama */
+        .input-nisn:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
         .btn-search {
             width: 100%;
-            background: var(--primary-light);
-            color: #ffffff;
+            height: 52px;
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
             border: none;
-            border-radius: 12px;
-            padding: 14px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-top: 14px;
+            border-radius: 16px;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
             cursor: pointer;
-            transition: background 0.2s ease;
             display: flex;
+            align-items: center;
             justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
-        .btn-search:hover {
-            background: #2563eb;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            transition: transform 0.1s ease, opacity 0.2s;
         }
 
-        /* Error Message */
-        .error-message {
-            display: none;
-            background: #fef2f2;
-            border: 1px solid #fca5a5;
-            color: var(--danger);
-            border-radius: 12px;
-            padding: 12px;
-            margin-top: 16px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            gap: 8px;
-            align-items: center;
+        .btn-search:active {
+            transform: scale(0.98);
         }
 
-        /* Loading Spinner */
+        /* --- ANIMASI LOADING DRAMATIS --- */
         .loading-container {
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 30px 0;
-            gap: 12px;
-        }
-        .spinner {
-            width: 36px;
-            height: 36px;
-            border: 4px solid #e2e8f0;
-            border-top-color: var(--primary-light);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        .pulse-text {
-            font-size: 0.85rem;
-            color: #64748b;
-            font-weight: 500;
+            padding: 40px 20px;
+            gap: 16px;
         }
 
-        /* Kartu Nilai Hasil Akhir */
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 5px solid rgba(37, 99, 235, 0.1);
+            border-top-color: #2563eb;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .pulse-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2563eb;
+            animation: pulse 1.2s infinite ease-in-out;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        /* --- SURPRISE BOUNCE EFFECT CARD --- */
         .result-envelope {
             display: none;
-            margin-top: 20px;
-            animation: slideUp 0.4s ease-out;
+            width: 100%;
         }
-        .student-card {
-            background: #ffffff;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+
+        .result-card {
+            width: 100%;
+            border-radius: 24px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            position: relative;
+            overflow: hidden;
+            animation: surpriseBounce 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
         }
-        .student-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-transform: uppercase;
-            margin-bottom: 4px;
+
+        @keyframes surpriseBounce {
+            0% { opacity: 0; transform: scale(0.4) translateY(120px); }
+            70% { transform: scale(1.05) translateY(-8px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-        .student-meta {
-            font-size: 0.8rem;
-            color: #64748b;
-            margin-bottom: 16px;
-            border-bottom: 1px dashed #e2e8f0;
-            padding-bottom: 12px;
+
+        /* --- THEME VARIATION RANK KARTU INDIVIDU --- */
+        
+        /* RANK 1: GRADASI HIJAU PASTEL + SHIMMER EFFECT */
+        .card-rank-1 {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            border: 3px solid #34d399;
+            box-shadow: 0 12px 24px rgba(52, 211, 153, 0.25);
+            background-size: 200% 200%;
+            animation: surpriseBounce 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275) both, shimmerBackground 4s ease infinite;
         }
-        .score-row {
+        @keyframes shimmerBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* RANK 2: GRADASI BIRU PASTEL */
+        .card-rank-2 {
+            background: linear-gradient(135deg, #dbaefe, #bfdbfe);
+            border: 2px solid #60a5fa;
+            box-shadow: 0 10px 20px rgba(96, 165, 250, 0.2);
+        }
+
+        /* RANK 3: GRADASI ORANYE PASTEL WARM */
+        .card-rank-3 {
+            background: linear-gradient(135deg, #ffedd5, #fdbb74);
+            border: 2px solid #fb923c;
+            box-shadow: 0 10px 20px rgba(251, 146, 60, 0.2);
+        }
+
+        /* RANK GENERAL (4 KE BAWAH) */
+        .card-rank-general {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
+        }
+
+        /* CARD ELEMENTS LAYOUT */
+        .card-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            background: #f8fafc;
-            padding: 10px 14px;
-            border-radius: 8px;
+            align-items: flex-start;
+            border-bottom: 1px dashed rgba(0,0,0,0.08);
+            padding-bottom: 14px;
         }
-        .score-label {
-            font-size: 0.9rem;
-            font-weight: 500;
+
+        .student-bio h2 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.3px;
         }
-        .score-value {
-            font-size: 0.95rem;
-            font-weight: 700;
+
+        .student-bio p {
+            font-size: 12px;
+            color: #475569;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .badge-rank {
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 800;
             display: flex;
             align-items: center;
             gap: 6px;
         }
-        .badge {
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-weight: 600;
-        }
-        .badge.baik { background: #d1fae5; color: #065f46; }
-        .badge.memadai { background: #e0f2fe; color: #0369a1; }
-        .badge.kurang { background: #fee2e2; color: #991b1b; }
 
-        /* Bottom Navigation Bar */
-        .bottom-nav {
+        .badge-rank-1 { background: #10b981; color: #ffffff; }
+        .badge-rank-2 { background: #2563eb; color: #ffffff; }
+        .badge-rank-3 { background: #ea580c; color: #ffffff; }
+        .badge-rank-general { background: #64748b; color: #ffffff; }
+
+        /* KELURUSAN BARIS NILAI (LAYOUT VERTIKAL ANTI-NABRAK HP SEMPIT) */
+        .scores-vertical-stack {
             display: flex;
-            border-top: 1px solid #e2e8f0;
-            background: #ffffff;
-        }
-        .nav-item {
-            flex: 1;
-            text-align: center;
-            padding: 14px 0;
-            color: #94a3b8;
-            cursor: pointer;
-            font-size: 0.75rem;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-        .nav-item i {
-            font-size: 1.2rem;
-            display: block;
-            margin-bottom: 4px;
-        }
-        .nav-item.active {
-            color: var(--primary-light);
+            flex-direction: column;
+            gap: 10px;
         }
 
-        /* Animations */
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        .score-row-box {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .score-left-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: flex-start;
+        }
+
+        .subject-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        /* Tag Kategori Lebar Otomatis (Width Auto) */
+        .score-tag-predikat {
+            width: auto;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .tag-baik { background-color: #d1fae5; color: #065f46; }
+        .tag-memadai { background-color: #dbeafe; color: #1e40af; }
+        .tag-kurang { background-color: #fef3c7; color: #92400e; }
+
+        .score-right-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        /* FOOTER KARTU */
+        .card-footer-average {
+            background: rgba(15, 23, 42, 0.04);
+            border-radius: 14px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4px;
+        }
+
+        .card-footer-average span {
+            font-size: 12px;
+            font-weight: 700;
+            color: #475569;
+        }
+
+        .card-footer-average .final-avg-val {
+            font-size: 16px;
+            font-weight: 800;
+            color: #1e293b;
+        }
+
+        .error-message {
+            display: none;
+            background: #fef2f2;
+            border: 1px solid #fee2e2;
+            border-radius: 16px;
+            padding: 14px;
+            color: #991b1b;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    
-    <div class="app-header">
-        <h1 id="school-title">SMP NEGERI 1 LINGGA</h1>
-        <p id="school-subtitle">Kolektif Hasil Tes Kemampuan Akademik 2026</p>
-    </div>
-
-    <div class="app-content">
+    <div class="container-mobile">
+        
+        <div class="m3-glass header-brand">
+            <div class="icon-edu">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div>
+                <h1>SMP Negeri 1 Lingga</h1>
+                <p>Kolektif Hasil Tes Kemampuan Akademik 2026</p>
+            </div>
+        </div>
 
         <div id="page-home" class="app-page">
-            <div class="m3-glass" style="text-align: center; padding: 40px 20px;">
-                <i class="fa-solid fa-graduation-cap" style="font-size: 3.5rem; color: var(--primary-light); margin-bottom: 16px;"></i>
-                <h2 style="font-size: 1.2rem; margin-bottom: 8px;">Selamat Datang di Portal Nilai</h2>
-                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; margin-bottom: 20px;">
-                    Gunakan aplikasi ini untuk memeriksa dokumen hasil Tes Kemampuan Akademik pribadi Anda secara aman.
-                </p>
-                <button class="btn-search" onclick="pindahLaman('nilaiku')">
-                    Mulai Cari Nilai <i class="fa-solid fa-arrow-right"></i>
-                </button>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="label">
+                        <i class="fa-solid fa-calculator" style="color:#2563eb;"></i> MTK Kelas
+                    </div>
+                    <div class="value" id="avg-mtk-kelas">0.00</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">
+                        <i class="fa-solid fa-book" style="color:#10b981;"></i> B. IND Kelas
+                    </div>
+                    <div class="value" id="avg-ind-kelas">0.00</div>
+                </div>
             </div>
+
+            <div class="m3-glass">
+                <div class="section-title">
+                    <i class="fa-solid fa-chart-bar" style="color:#2563eb;"></i> Distribusi Matematika
+                </div>
+                <div class="chart-group" id="distribusi-mtk-chart">
+                    </div>
+            </div>
+
+            <div class="m3-glass">
+                <div class="section-title">
+                    <i class="fa-solid fa-chart-bar" style="color:#10b981;"></i> Distribusi B. Indonesia
+                </div>
+                <div class="chart-group" id="distribusi-ind-chart">
+                    </div>
+            </div>
+
         </div>
 
         <div id="page-nilaiku" class="app-page active">
             
             <div class="m3-glass search-box">
-                <div class="search-title">Cari Amplop Nilai Pribadi</div>
+                <div class="search-title">Masukkan 10 Digit NISN Siswa Secara Lengkap Untuk Membuka Amplop Nilai</div>
                 
                 <div class="input-wrapper">
                     <i class="fa-solid fa-id-card-clip"></i>
-                    <input type="number" id="input-search-nisn" class="input-nisn" placeholder="Masukkan 10 digit NISN Anda..." pattern="[0-9]*" inputmode="numeric" oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);">
+                    <input type="number" id="input-search-nisn" class="input-nisn" placeholder="Contoh: 0113559822" pattern="[0-9]*" inputmode="numeric">
                 </div>
 
                 <button class="btn-search" onclick="prosesBukaAmplop()">
@@ -319,223 +609,352 @@
                 </button>
             </div>
 
-            <div id="search-error" class="error-message"></div>
+            <div id="search-error" class="error-message">
+                <i class="fa-solid fa-triangle-exclamation"></i> Maaf, NISN tidak ditemukan. Periksa kembali angka yang dimasukkan.
+            </div>
 
             <div id="search-loading" class="loading-container">
                 <div class="spinner"></div>
-                <div class="pulse-text">Memvalidasi NISN & Membuka Kunci Dokumen...</div>
+                <div class="pulse-text">Membuka Kunci Dokumen Amplop...</div>
             </div>
 
-            <div id="envelope-target" class="result-envelope"></div>
+            <div id="envelope-target" class="result-envelope">
+                </div>
 
         </div>
+
+        <nav class="bottom-navbar">
+            <button class="nav-item" id="nav-home" onclick="pindahLaman('home')">
+                <i class="fa-solid fa-chart-simple"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-item active" id="nav-nilaiku" onclick="pindahLaman('nilaiku')">
+                <i class="fa-solid fa-address-card"></i>
+                <span>Nilaiku</span>
+            </button>
+        </nav>
 
     </div>
 
-    <div class="bottom-nav">
-        <div id="nav-home" class="nav-item" onclick="pindahLaman('home')">
-            <i class="fa-solid fa-house"></i>
-            Home
-        </div>
-        <div id="nav-nilaiku" class="nav-item active" onclick="pindahLaman('nilaiku')">
-            <i class="fa-solid fa-address-card"></i>
-            Nilai Ku
-        </div>
-    </div>
+    <script>
+        // DATA DARI SELURUH 88 SISWA DI PDF
+        const RAW_STUDENT_DATA = [
+            { no: 1, nisn: "0113067688", nama: "Riska Sari", mtk: 20.00, mtk_pred: "Kurang", ind: 60.00, ind_pred: "Memadai" },
+            { no: 2, nisn: "0113559822", nama: "MECA ADELYA CAHYANI", mtk: 50.00, mtk_pred: "Memadai", ind: 90.00, ind_pred: "Baik" },
+            { no: 3, nisn: "0115427698", nama: "Dzikri Harith Haziq", mtk: 50.00, mtk_pred: "Memadai", ind: 70.00, ind_pred: "Memadai" },
+            { no: 4, nisn: "0123776337", nama: "VANDERSAR MEICHAEL NAINGGOLAN", mtk: 23.33, mtk_pred: "Kurang", ind: 86.67, ind_pred: "Baik" },
+            { no: 5, nisn: "0114844674", nama: "Syifa Syaqirah", mtk: 33.33, mtk_pred: "Memadai", ind: 63.33, ind_pred: "Memadai" },
+            { no: 6, nisn: "0117775355", nama: "QIAN FERDINAND", mtk: 36.67, mtk_pred: "Memadai", ind: 46.67, ind_pred: "Kurang" },
+            { no: 7, nisn: "0116942061", nama: "SYARIFAH NAJWA SAFIZ", mtk: 0.00, mtk_pred: "Kurang", ind: 83.33, ind_pred: "Baik" },
+            { no: 8, nisn: "0119458667", nama: "SUHARAYAH", mtk: 26.67, mtk_pred: "Kurang", ind: 63.33, ind_pred: "Memadai" },
+            { no: 9, nisn: "0111929206", nama: "AIRIN DWI RAMADHANI", mtk: 40.00, mtk_pred: "Memadai", ind: 63.33, ind_pred: "Memadai" },
+            { no: 10, nisn: "0094409765", nama: "Imam Syahibbullah", mtk: 0.00, mtk_pred: "Kurang", ind: 53.33, ind_pred: "Memadai" },
+            { no: 11, nisn: "0119416095", nama: "Deby Septiani", mtk: 43.33, mtk_pred: "Memadai", ind: 80.00, ind_pred: "Baik" },
+            { no: 12, nisn: "0112474826", nama: "Ibnu Shalim", mtk: 26.67, mtk_pred: "Kurang", ind: 43.33, ind_pred: "Kurang" },
+            { no: 13, nisn: "0117387487", nama: "LIPIANA SUCI RAMARANI", mtk: 50.00, mtk_pred: "Memadai", ind: 86.67, ind_pred: "Baik" },
+            { no: 14, nisn: "0111805260", nama: "irvan kurnia", mtk: 16.67, mtk_pred: "Kurang", ind: 43.33, ind_pred: "Kurang" },
+            { no: 15, nisn: "0086621206", nama: "Arya Imam Risnanda", mtk: 43.33, mtk_pred: "Memadai", ind: 80.00, ind_pred: "Baik" },
+            { no: 16, nisn: "0118621492", nama: "Raisa Idadi", mtk: 30.00, mtk_pred: "Kurang", ind: 66.67, ind_pred: "Memadai" },
+            { no: 17, nisn: "0116566978", nama: "Kafha Azri Ilhamsyah", mtk: 43.33, mtk_pred: "Memadai", ind: 73.33, ind_pred: "Memadai" },
+            { no: 18, nisn: "0114962861", nama: "Muhammad Erwan Zarka", mtk: 36.67, mtk_pred: "Memadai", ind: 63.33, ind_pred: "Memadai" },
+            { no: 19, nisn: "0105152266", nama: "Adonia Najla Raissa", mtk: 40.00, mtk_pred: "Memadai", ind: 66.67, ind_pred: "Memadai" },
+            { no: 20, nisn: "0099948557", nama: "KHASBI NOVALDI", mtk: 36.67, mtk_pred: "Memadai", ind: 56.67, ind_pred: "Memadai" },
+            { no: 21, nisn: "0107778998", nama: "Sabrina Embun Pertiwi", mtk: 40.00, mtk_pred: "Memadai", ind: 60.00, ind_pred: "Memadai" },
+            { no: 22, nisn: "0116938426", nama: "Syarifah Zilfa Natasya", mtk: 43.33, mtk_pred: "Memadai", ind: 80.00, ind_pred: "Baik" },
+            { no: 23, nisn: "0119879134", nama: "SHAZIA ZARA ALISHA", mtk: 46.67, mtk_pred: "Memadai", ind: 60.00, ind_pred: "Memadai" },
+            { no: 24, nisn: "0117587242", nama: "sapinah", mtk: 26.67, mtk_pred: "Kurang", ind: 46.67, ind_pred: "Kurang" },
+            { no: 25, nisn: "0115247372", nama: "Meisya Awalun Nurhasanah", mtk: 26.67, mtk_pred: "Kurang", ind: 53.33, ind_pred: "Memadai" },
+            { no: 26, nisn: "0113332240", nama: "NUR RAFNI YASMADI", mtk: 33.33, mtk_pred: "Memadai", ind: 50.00, ind_pred: "Memadai" },
+            { no: 27, nisn: "0114298991", nama: "ZAI ISRAKMIDIAH", mtk: 36.67, mtk_pred: "Memadai", ind: 66.67, ind_pred: "Memadai" },
+            { no: 28, nisn: "0112792471", nama: "AISH GHAZIYA RAFIFA", mtk: 50.00, mtk_pred: "Memadai", ind: 63.33, ind_pred: "Memadai" },
+            { no: 29, nisn: "0105796473", nama: "GUNAWAN FAUZI", mtk: 33.33, mtk_pred: "Memadai", ind: 43.33, ind_pred: "Kurang" },
+            { no: 30, nisn: "0112376775", nama: "ISNAINI", mtk: 36.67, mtk_pred: "Memadai", ind: 36.67, ind_pred: "Kurang" },
+            { no: 31, nisn: "0101111863", nama: "Ananda Ibnu Fahrezi", mtk: 33.33, mtk_pred: "Memadai", ind: 76.67, ind_pred: "Baik" },
+            { no: 32, nisn: "0111647237", nama: "Faqiha Tazkiatun Nufus", mtk: 36.67, mtk_pred: "Memadai", ind: 70.00, ind_pred: "Memadai" },
+            { no: 33, nisn: "0113654663", nama: "MUHAMMAD MUFLIH HIBATULLAH NURVAL", mtk: 50.00, mtk_pred: "Memadai", ind: 46.67, ind_pred: "Kurang" },
+            { no: 34, nisn: "0113688046", nama: "rati junila", mtk: 33.33, mtk_pred: "Memadai", ind: 70.00, ind_pred: "Memadai" },
+            { no: 35, nisn: "0112757766", nama: "ZALFA MUFIDAH INAYAH", mtk: 50.00, mtk_pred: "Memadai", ind: 70.00, ind_pred: "Memadai" },
+            { no: 36, nisn: "0117042213", nama: "Dyra Altha Funisya", mtk: 53.33, mtk_pred: "Memadai", ind: 76.67, ind_pred: "Baik" },
+            { no: 37, nisn: "0114103715", nama: "RAFADIL ANΑΝΤΑ", mtk: 46.67, mtk_pred: "Memadai", ind: 73.33, ind_pred: "Memadai" },
+            { no: 38, nisn: "0112333526", nama: "RINA RIYANTI", mtk: 46.67, mtk_pred: "Memadai", ind: 53.33, ind_pred: "Memadai" },
+            { no: 39, nisn: "0107287635", nama: "NATASYA ZULHAFIFAH", mtk: 16.67, mtk_pred: "Kurang", ind: 66.67, ind_pred: "Memadai" },
+            { no: 40, nisn: "0114766625", nama: "Sheril Gianda Utami", mtk: 30.00, mtk_pred: "Kurang", ind: 43.33, ind_pred: "Kurang" },
+            { no: 41, nisn: "0113394958", nama: "SYARIFAH NAFIA SAFIZ", mtk: 50.00, mtk_pred: "Memadai", ind: 80.00, ind_pred: "Baik" },
+            { no: 42, nisn: "0113962310", nama: "RISNA ULKA ARYANI", mtk: 33.33, mtk_pred: "Memadai", ind: 60.00, ind_pred: "Memadai" },
+            { no: 43, nisn: "0101800405", nama: "REFAN PINANDO", mtk: 56.67, mtk_pred: "Baik", ind: 40.00, ind_pred: "Kurang" },
+            { no: 44, nisn: "0106977903", nama: "VIKY ADITYA SYAPUTRA", mtk: 46.67, mtk_pred: "Memadai", ind: 40.00, ind_pred: "Kurang" },
+            { no: 45, nisn: "0112026378", nama: "SILA ADELIA", mtk: 33.33, mtk_pred: "Memadai", ind: 63.33, ind_pred: "Memadai" },
+            { no: 46, nisn: "0114122561", nama: "Liyana Zahira", mtk: 23.33, mtk_pred: "Kurang", ind: 60.00, ind_pred: "Memadai" },
+            { no: 47, nisn: "0115557747", nama: "adelia dwi nurmansyah", mtk: 43.33, mtk_pred: "Memadai", ind: 80.00, ind_pred: "Baik" },
+            { no: 48, nisn: "0112426972", nama: "JEANTRIKA SAPUTERA", mtk: 50.00, mtk_pred: "Memadai", ind: 46.67, ind_pred: "Kurang" },
+            { no: 49, nisn: "0097680988", nama: "Delvry Anggara Panjaitan", mtk: 53.33, mtk_pred: "Memadai", ind: 70.00, ind_pred: "Memadai" },
+            { no: 50, nisn: "0115755742", nama: "Zatia Maysya", mtk: 53.33, mtk_pred: "Memadai", ind: 83.33, ind_pred: "Baik" },
+            { no: 51, nisn: "0113402279", nama: "RIZKA INDRI ADELIASA", mtk: 43.33, mtk_pred: "Memadai", ind: 53.33, ind_pred: "Memadai" },
+            { no: 52, nisn: "0118789434", nama: "RAJA FATHUR ABDILLAH", mtk: 60.00, mtk_pred: "Baik", ind: 73.33, ind_pred: "Memadai" },
+            { no: 53, nisn: "0118177962", nama: "MARWA DWI RAMADANI", mtk: 53.33, mtk_pred: "Memadai", ind: 86.67, ind_pred: "Baik" },
+            { no: 54, nisn: "0112631039", nama: "Dafitra Ariansyah", mtk: 46.67, mtk_pred: "Memadai", ind: 60.00, ind_pred: "Memadai" },
+            { no: 55, nisn: "0102053051", nama: "Muhammad Gibran Assyafari", mtk: 50.00, mtk_pred: "Memadai", ind: 66.67, ind_pred: "Memadai" },
+            { no: 56, nisn: "0109121124", nama: "Ghastan Gautama Ginarda", mtk: 60.00, mtk_pred: "Baik", ind: 86.67, ind_pred: "Baik" },
+            { no: 57, nisn: "0118552573", nama: "Muhammad Fadhil Ardiansyah", mtk: 40.00, mtk_pred: "Memadai", ind: 66.67, ind_pred: "Memadai" },
+            { no: 58, nisn: "0116317492", nama: "SUKMASARI", mtk: 33.33, mtk_pred: "Memadai", ind: 60.00, ind_pred: "Memadai" },
+            { no: 59, nisn: "0105395625", nama: "ZIFARA OKTIA GISKA", mtk: 56.67, mtk_pred: "Baik", ind: 66.67, ind_pred: "Memadai" },
+            { no: 60, nisn: "0128826786", nama: "M.BAYU RIZKITULLAH", mtk: 63.33, mtk_pred: "Baik", ind: 53.33, ind_pred: "Memadai" },
+            { no: 61, nisn: "0102542618", nama: "Herisusanti", mtk: 53.33, mtk_pred: "Memadai", ind: 86.67, ind_pred: "Baik" },
+            { no: 62, nisn: "0118960096", nama: "Dzakiyya Naila Sakhi", mtk: 50.00, mtk_pred: "Memadai", ind: 80.00, ind_pred: "Baik" },
+            { no: 63, nisn: "0117249653", nama: "Suci Safira Putri", mtk: 53.33, mtk_pred: "Memadai", ind: 70.00, ind_pred: "Memadai" },
+            { no: 64, nisn: "0115867734", nama: "RIZKA ALFIA AZ ZAHRA", mtk: 56.67, mtk_pred: "Baik", ind: 80.00, ind_pred: "Baik" },
+            { no: 65, nisn: "0119453195", nama: "NAZILA MAHARANI", mtk: 30.00, mtk_pred: "Kurang", ind: 83.33, ind_pred: "Baik" },
+            { no: 66, nisn: "0118730407", nama: "Mulhuda", mtk: 46.67, mtk_pred: "Memadai", ind: 66.67, ind_pred: "Memadai" },
+            { no: 67, nisn: "0119247555", nama: "HANY BAZLINDA", mtk: 56.67, mtk_pred: "Baik", ind: 83.33, ind_pred: "Baik" },
+            { no: 68, nisn: "0105795746", nama: "Sahrini Ramadani", mtk: 43.33, mtk_pred: "Memadai", ind: 26.67, ind_pred: "Kurang" },
+            { no: 69, nisn: "0114699199", nama: "RISKY ARDIAN MISKA SACHPUTRA", mtk: 40.00, mtk_pred: "Memadai", ind: 53.33, ind_pred: "Memadai" },
+            { no: 70, nisn: "0106306052", nama: "NI'A ROSA", mtk: 46.67, mtk_pred: "Memadai", ind: 63.33, ind_pred: "Memadai" },
+            { no: 71, nisn: "0114478647", nama: "ACHAI ANDREAS", mtk: 46.67, mtk_pred: "Memadai", ind: 63.33, ind_pred: "Memadai" },
+            { no: 72, nisn: "0111751808", nama: "SYARIFAH IZZATI AQILA", mtk: 40.00, mtk_pred: "Memadai", ind: 76.67, ind_pred: "Baik" },
+            { no: 73, nisn: "0119149285", nama: "ANUGRAH AGUSTI RAMADHANI", mtk: 56.67, mtk_pred: "Baik", ind: 80.00, ind_pred: "Baik" },
+            { no: 74, nisn: "0091754679", nama: "HESTY YOLANDA SIRABANG", mtk: 46.67, mtk_pred: "Memadai", ind: 76.67, ind_pred: "Baik" },
+            { no: 75, nisn: "0111226881", nama: "usman", mtk: 43.33, mtk_pred: "Memadai", ind: 60.00, ind_pred: "Memadai" },
+            { no: 76, nisn: "0106504994", nama: "ZURRIATI FARHANA", mtk: 26.67, mtk_pred: "Kurang", ind: 76.67, ind_pred: "Baik" },
+            { no: 77, nisn: "0116283543", nama: "Erina Nazira", mtk: 43.33, mtk_pred: "Memadai", ind: 63.33, ind_pred: "Memadai" },
+            { no: 78, id: 78, nisn: "0102191383", nama: "WINDA AULIA", mtk: 30.00, mtk_pred: "Kurang", ind: 46.67, ind_pred: "Kurang" },
+            { no: 79, nisn: "0113021378", nama: "ARFA", mtk: 43.33, mtk_pred: "Memadai", ind: 63.33, ind_pred: "Memadai" },
+            { no: 80, nisn: "0103349505", nama: "Novita Adha Riah", mtk: 46.67, mtk_pred: "Memadai", ind: 53.33, ind_pred: "Memadai" },
+            { no: 81, nisn: "0093969948", nama: "NOVRIAN SAPUTRA", mtk: 40.00, mtk_pred: "Memadai", ind: 36.67, ind_pred: "Kurang" },
+            { no: 82, nisn: "0119656574", nama: "SILVIA FRANSISKA NATALIA", mtk: 43.33, mtk_pred: "Memadai", ind: 73.33, ind_pred: "Memadai" },
+            { no: 83, nisn: "0107212771", nama: "ANGGARA PRATAMA", mtk: 33.33, mtk_pred: "Memadai", ind: 33.33, ind_pred: "Kurang" },
+            { no: 84, nisn: "0119389544", nama: "Nazriel Alfarizqy Yuniar", mtk: 46.67, mtk_pred: "Memadai", ind: 76.67, ind_pred: "Baik" },
+            { no: 85, nisn: "0102286678", nama: "Faiz Fayzul Haq", mtk: 46.67, mtk_pred: "Memadai", ind: 83.33, ind_pred: "Baik" },
+            { no: 86, nisn: "0115970688", nama: "Rahmanda Pratama", mtk: 26.67, mtk_pred: "Kurang", ind: 46.67, ind_pred: "Kurang" },
+            { no: 87, nisn: "0118701232", nama: "megawati", mtk: 56.67, mtk_pred: "Baik", ind: 76.67, ind_pred: "Baik" },
+            { no: 88, nisn: "0108287271", nama: "MAHARANI DEWI", mtk: 53.33, mtk_pred: "Memadai", ind: 60.00, ind_pred: "Memadai" }
+        ];
 
-</div>
+        let processedData = [];
 
-<script>
-// DATA REKAP RESMI DARI DOKUMEN HASIL TES AKADEMIK 2026
-const RAW_STUDENT_DATA = [
-    { num: 1, nisn: "0113067688", name: "Riska Sari", m_score: "20.00", m_label: "Kurang", b_score: "60.00", b_label: "Memadai" },
-    { num: 2, nisn: "0113559822", name: "MECA ADELYA CAHYANI", m_score: "50.00", m_label: "Memadai", b_score: "90.00", b_label: "Baik" },
-    { num: 3, nisn: "0115427698", name: "Dzikri Harith Haziq", m_score: "50.00", m_label: "Memadai", b_score: "70.00", b_label: "Memadai" },
-    { num: 4, nisn: "0123776337", name: "VANDERSAR MEICHAEL NAINGGOLAN", m_score: "23.33", m_label: "Kurang", b_score: "86.67", b_label: "Baik" },
-    { num: 5, nisn: "0114844674", name: "Syifa Syaqirah", m_score: "33.33", m_label: "Memadai", b_score: "63.33", b_label: "Memadai" },
-    { num: 6, nisn: "0117775355", name: "QIAN FERDINAND", m_score: "36.67", m_label: "Memadai", b_score: "46.67", b_label: "Kurang" },
-    { num: 7, nisn: "0116942061", name: "SYARIFAH NAJWA SAFIZ", m_score: "-", m_label: "Tidak Ada Data", b_score: "83.33", b_label: "Baik" },
-    { num: 8, nisn: "0119458667", name: "SUHARAYAH", m_score: "26.67", m_label: "Kurang", b_score: "63.33", b_label: "Memadai" },
-    { num: 9, nisn: "0111929206", name: "AIRIN DWI RAMADHANI", m_score: "40.00", m_label: "Memadai", b_score: "63.33", b_label: "Memadai" },
-    { num: 10, nisn: "0094409765", name: "Imam Syahibbullah", m_score: "-", m_label: "Tidak Ada Data", b_score: "53.33", b_label: "Memadai" },
-    { num: 11, nisn: "0119416095", name: "Deby Septiani", m_score: "43.33", m_label: "Memadai", b_score: "80.00", b_label: "Baik" },
-    { num: 12, nisn: "0112474826", name: "Ibnu Shalim", m_score: "26.67", m_label: "Kurang", b_score: "43.33", b_label: "Kurang" },
-    { num: 13, nisn: "0117387487", name: "LIPIANA SUCI RAMARANI", m_score: "50.00", m_label: "Memadai", b_score: "86.67", b_label: "Baik" },
-    { num: 14, nisn: "0111805260", name: "irvan kurnia", m_score: "16.67", m_label: "Kurang", b_score: "43.33", b_label: "Kurang" },
-    { num: 15, nisn: "0086621206", name: "Arya Imam Risnanda", m_score: "43.33", m_label: "Memadai", b_score: "80.00", b_label: "Baik" },
-    { num: 16, nisn: "0118621492", name: "Raisa Idadi", m_score: "30.00", m_label: "Kurang", b_score: "66.67", m_label: "Memadai" },
-    { num: 17, nisn: "0116566978", name: "Kafha Azri Ilhamsyah", m_score: "43.33", m_label: "Memadai", b_score: "73.33", b_label: "Memadai" },
-    { num: 18, nisn: "0114962861", name: "Muhammad Erwan Zarka", m_score: "36.67", m_label: "Memadai", b_score: "63.33", b_label: "Memadai" },
-    { num: 19, nisn: "0105152266", name: "Adonia Najla Raissa", m_score: "40.00", m_label: "Memadai", b_score: "66.67", b_label: "Memadai" },
-    { num: 20, nisn: "0099948557", name: "KHASBI NOVALDI", m_score: "36.67", m_label: "Memadai", b_score: "56.67", b_label: "Memadai" },
-    { num: 21, nisn: "0107778998", name: "Sabrina Embun Pertiwi", m_score: "40.00", m_label: "Memadai", b_score: "60.00", b_label: "Memadai" },
-    { num: 22, nisn: "0116938426", name: "Syarifah Zilfa Natasya", m_score: "43.33", m_label: "Memadai", b_score: "80.00", b_label: "Baik" },
-    { num: 23, nisn: "0119879134", name: "SHAZIA ZARA ALISHA", m_score: "46.67", m_label: "Memadai", b_score: "60.00", b_label: "Memadai" },
-    { num: 24, nisn: "0117587242", name: "sapinah", m_score: "26.67", m_label: "Kurang", b_score: "46.67", b_label: "Kurang" },
-    { num: 25, nisn: "0115247372", name: "Meisya Awalun Nurhasanah", m_score: "26.67", m_label: "Kurang", b_score: "53.33", b_label: "Memadai" },
-    { num: 26, nisn: "0113332240", name: "NUR RAFNI YASMADI", m_score: "33.33", m_label: "Memadai", b_score: "50.00", b_label: "Memadai" },
-    { num: 27, nisn: "0114298991", name: "ZAI ISRAKMIDIAH", m_score: "36.67", m_label: "Memadai", b_score: "66.67", b_label: "Memadai" },
-    { num: 28, nisn: "0112792471", name: "AISH GHAZIYA RAFIFA", m_score: "50.00", m_label: "Memadai", b_score: "63.33", b_label: "Memadai" },
-    { num: 29, nisn: "0105796473", name: "GUNAWAN FAUZI", m_score: "33.33", m_label: "Memadai", b_score: "43.33", b_label: "Kurang" },
-    { num: 30, nisn: "0112376775", name: "ISNAINI", m_score: "36.67", m_label: "Memadai", b_score: "36.67", b_label: "Kurang" },
-    { num: 31, nisn: "0101111863", name: "Ananda Ibnu Fahrezi", m_score: "33.33", m_label: "Memadai", b_score: "76.67", b_label: "Baik" },
-    { num: 32, nisn: "0111647237", name: "Faqiha Tazkiatun Nufus", m_score: "36.67", m_label: "Memadai", b_score: "70.00", b_label: "Memadai" },
-    { num: 33, nisn: "0113654663", name: "MUHAMMAD MUFLIH HIBATULLAH NURVAL", m_score: "50.00", m_label: "Memadai", b_score: "46.67", b_label: "Kurang" },
-    { num: 34, nisn: "0113688046", name: "rati junila", m_score: "33.33", m_label: "Memadai", b_score: "70.00", b_label: "Memadai" },
-    { num: 35, nisn: "0112757766", name: "ZALFA MUFIDAH INAYAH", m_score: "50.00", m_label: "Memadai", b_score: "70.00", b_label: "Memadai" },
-    { num: 36, nisn: "0117042213", name: "Dyra Altha Funisya", m_score: "53.33", m_label: "Memadai", b_score: "76.67", b_label: "Baik" },
-    { num: 37, nisn: "0114103715", name: "RAFADIL ANΑΝΤΑ", m_score: "46.67", m_label: "Memadai", b_score: "73.33", b_label: "Memadai" },
-    { num: 38, nisn: "0112333526", name: "RINA RIYANTI", m_score: "46.67", m_label: "Memadai", b_score: "53.33", b_label: "Memadai" },
-    { num: 39, nisn: "0107287635", name: "NATASYA ZULHAFIFAH", m_score: "16.67", m_label: "Kurang", b_score: "66.67", b_label: "Memadai" },
-    { num: 40, nisn: "0114766625", name: "Sheril Gianda Utami", m_score: "30.00", m_label: "Kurang", b_score: "43.33", b_label: "Kurang" },
-    { num: 41, nisn: "0113394958", name: "SYARIFAH NAFIA SAFIZ", m_score: "50.00", m_label: "Memadai", b_score: "80.00", b_label: "Baik" },
-    { num: 42, nisn: "0113962310", name: "RISNA ULKA ARYANI", m_score: "33.33", m_label: "Memadai", b_score: "60.00", b_label: "Memadai" },
-    { num: 43, nisn: "0101800405", name: "REFAN PINANDO", m_score: "56.67", m_label: "Baik", b_score: "40.00", b_label: "Kurang" },
-    { num: 44, nisn: "0106977903", name: "VIKY ADITYA SYAPUTRA", m_score: "46.67", m_label: "Memadai", b_score: "40.00", b_label: "Kurang" },
-    { num: 45, nisn: "0112026378", name: "SILA ADELIA", m_score: "33.33", m_label: "Memadai", b_score: "63.33", b_label: "Memadai" },
-    { num: 46, nisn: "0114122561", name: "Liyana Zahira", m_score: "23.33", m_label: "Kurang", b_score: "60.00", b_label: "Memadai" },
-    { num: 47, nisn: "0115557747", name: "adelia dwi nurmansyah", m_score: "43.33", m_label: "Memadai", b_score: "80.00", b_label: "Baik" },
-    { num: 48, nisn: "0112426972", name: "JEANTRIKA SAPUTERA", m_score: "50.00", m_label: "Memadai", b_score: "46.67", b_label: "Kurang" },
-    { num: 49, nisn: "0097680988", name: "Delvry Anggara Panjaitan", m_score: "53.33", m_label: "Memadai", b_score: "70.00", m_label: "Memadai" },
-    { num: 50, nisn: "0115755742", name: "Zatia Maysya", m_score: "53.33", m_label: "Memadai", b_score: "83.33", b_label: "Baik" },
-    { num: 51, nisn: "0113402279", name: "RIZKA INDRI ADELIASA", m_score: "43.33", m_label: "Memadai", b_score: "53.33", b_label: "Memadai" },
-    { num: 52, nisn: "0118789434", name: "RAJA FATHUR ABDILLAH", m_score: "60.00", m_label: "Baik", b_score: "73.33", b_label: "Memadai" },
-    { num: 53, nisn: "0118177962", name: "MARWA DWI RAMADANI", m_score: "53.33", m_label: "Memadai", b_score: "86.67", b_label: "Baik" },
-    { num: 54, nisn: "0112631039", name: "Dafitra Ariansyah", m_score: "46.67", m_label: "Memadai", b_score: "60.00", b_label: "Memadai" },
-    { num: 55, nisn: "0102053051", name: "Muhammad Gibran Assyafari", m_score: "50.00", m_label: "Memadai", b_score: "66.67", b_label: "Memadai" },
-    { num: 56, nisn: "0109121124", name: "Ghastan Gautama Ginarda", m_score: "60.00", m_label: "Baik", b_score: "86.67", b_label: "Baik" },
-    { num: 57, nisn: "0118552573", name: "Muhammad Fadhil Ardiansyah", m_score: "40.00", m_label: "Memadai", b_score: "66.67", b_label: "Memadai" },
-    { num: 58, nisn: "0116317492", name: "SUKMASARI", m_score: "33.33", m_label: "Memadai", b_score: "60.00", b_label: "Memadai" },
-    { num: 59, nisn: "0105395625", name: "ZIFARA OKTIA GISKA", m_score: "56.67", m_label: "Baik", b_score: "66.67", b_label: "Memadai" },
-    { num: 60, nisn: "0128826786", name: "M.BAYU RIZKITULLAH", m_score: "63.33", m_label: "Baik", b_score: "53.33", b_label: "Memadai" },
-    { num: 61, nisn: "0102542618", name: "Herisusanti", m_score: "53.33", m_label: "Memadai", b_score: "86.67", b_label: "Baik" },
-    { num: 62, nisn: "0118960096", name: "Dzakiyya Naila Sakhi", m_score: "50.00", m_label: "Memadai", b_score: "80.00", b_label: "Baik" },
-    { num: 63, nisn: "0117249653", name: "Suci Safira Putri", m_score: "53.33", m_label: "Memadai", b_score: "70.00", b_label: "Memadai" },
-    { num: 64, nisn: "0115867734", name: "RIZKA ALFIA AZ ZAHRA", m_score: "56.67", m_label: "Baik", b_score: "80.00", b_label: "Baik" },
-    { num: 65, nisn: "0119453195", name: "NAZILA MAHARANI", m_score: "30.00", m_label: "Kurang", b_score: "83.33", b_label: "Baik" },
-    { num: 66, nisn: "0118730407", name: "Mulhuda", m_score: "46.67", m_label: "Memadai", b_score: "66.67", b_label: "Memadai" },
-    { num: 67, nisn: "0119247555", name: "HANY BAZLINDA", m_score: "56.67", m_label: "Baik", b_score: "83.33", b_label: "Baik" },
-    { num: 68, nisn: "0105795746", name: "Sahrini Ramadani", m_score: "43.33", m_label: "Memadai", b_score: "26.67", b_label: "Kurang" },
-    { num: 69, nisn: "0114699199", name: "RISKY ARDIAN MISKA SACHPUTRA", m_score: "40.00", m_label: "Memadai", b_score: "53.33", m_label: "Memadai" },
-    { num: 70, nisn: "0106306052", name: "NI'A ROSA", m_score: "46.67", m_label: "Memadai", b_score: "63.33", b_label: "Memadai" },
-    { num: 71, nisn: "0114478647", name: "ACHAI ANDREAS", m_score: "46.67", m_label: "Memadai", b_score: "63.33", b_label: "Memadai" },
-    { num: 72, nisn: "0111751808", name: "SYARIFAH IZZATI AQILA", m_score: "40.00", m_label: "Memadai", b_score: "76.67", b_label: "Baik" },
-    { num: 73, nisn: "0119149285", name: "ANUGRAH AGUSTI RAMADHANI", m_score: "56.67", m_label: "Baik", b_score: "80.00", b_label: "Baik" },
-    { num: 74, nisn: "0091754679", name: "HESTY YOLANDA SIRABANG", m_score: "46.67", m_label: "Memadai", b_score: "76.67", b_label: "Baik" },
-    { num: 75, nisn: "0111226881", name: "usman", m_score: "43.33", m_label: "Memadai", b_score: "60.00", b_label: "Memadai" },
-    { num: 76, nisn: "0106504994", name: "ZURRIATI FARHANA", m_score: "26.67", m_label: "Kurang", b_score: "76.67", b_label: "Baik" },
-    { num: 77, nisn: "0116283543", name: "Erina Nazira", m_score: "43.33", m_label: "Memadai", b_score: "63.33", b_label: "Memadai" },
-    { num: 78, nisn: "0102191383", name: "WINDA AULIA", m_score: "30.00", m_label: "Kurang", b_score: "46.67", b_label: "Kurang" },
-    { num: 79, nisn: "0113021378", name: "ARFA", m_score: "43.33", m_label: "Memadai", b_score: "63.33", b_label: "Memadai" },
-    { num: 80, nisn: "0103349505", name: "Novita Adha Riah", m_score: "46.67", m_label: "Memadai", b_score: "53.33", b_label: "Memadai" },
-    { num: 81, nisn: "0093969948", name: "NOVRIAN SAPUTRA", m_score: "40.00", m_label: "Memadai", b_score: "36.67", b_label: "Kurang" },
-    { num: 82, nisn: "0119656574", name: "SILVIA FRANSISKA NATALIA", m_score: "43.33", m_label: "Memadai", b_score: "73.33", b_label: "Memadai" },
-    { num: 83, nisn: "0107212771", name: "ANGGARA PRATAMA", m_score: "33.33", m_label: "Memadai", b_score: "33.33", b_label: "Kurang" },
-    { num: 84, nisn: "0119389544", name: "Nazriel Alfarizqy Yuniar", m_score: "46.67", m_label: "Memadai", b_score: "76.67", b_label: "Baik" },
-    { num: 85, nisn: "0102286678", name: "Faiz Fayzul Haq", m_score: "46.67", m_label: "Memadai", b_score: "83.33", b_label: "Baik" },
-    { num: 86, nisn: "0115970688", name: "Rahmanda Pratama", m_score: "26.67", m_label: "Kurang", b_score: "46.67", b_label: "Kurang" },
-    { num: 87, nisn: "0118701232", name: "megawati", m_score: "56.67", m_label: "Baik", b_score: "76.67", b_label: "Baik" },
-    { num: 88, nisn: "0108287271", name: "MAHARANI DEWI", m_score: "53.33", m_label: "Memadai", b_score: "60.00", b_label: "Memadai" }
-];
+        // 1. ENGINE INISIALISASI DATA
+        function initAppEngine() {
+            processedData = RAW_STUDENT_DATA.map(student => {
+                const kombinasiAvg = (student.mtk + student.ind) / 2;
+                return {
+                    ...student,
+                    avg: parseFloat(kombinasiAvg.toFixed(2))
+                };
+            });
 
-// FUNGSI NAVIGASI PINDAH HALAMAN TAB
-function pindahLaman(pageId) {
-    // Sembunyikan semua halaman & reset nav class
-    document.querySelectorAll('.app-page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    
-    // Aktifkan target halaman & nav yang dipilih
-    document.getElementById(`page-${pageId}`).classList.add('active');
-    document.getElementById(`nav-${pageId}`).classList.add('active');
-}
+            // Urutkan berdasarkan rata-rata tertinggi ke terendah
+            processedData.sort((a, b) => b.avg - a.avg);
 
-// FUNGSI TOMBOL CHECK UTAMA (Sistem Steril Tanpa Live Auto-Filter)
-function prosesBukaAmplop() {
-    const inputField = document.getElementById('input-search-nisn');
-    const targetEnvelope = document.getElementById('envelope-target');
-    const errorBox = document.getElementById('search-error');
-    const loadingBox = document.getElementById('search-loading');
+            // Tetapkan urutan peringkat
+            processedData = processedData.map((student, index) => {
+                return {
+                    ...student,
+                    rank: index + 1
+                };
+            });
 
-    // Reset view state awal agar bersih
-    targetEnvelope.style.display = 'none';
-    errorBox.style.display = 'none';
-    errorBox.innerHTML = '';
+            hitungStatistikBeranda();
+        }
 
-    const queryNisn = inputField.value.trim();
+        // 2. KONTEN LAMAN 1: REKAPITULASI DATA GLOBAL KELAS
+        function hitungStatistikBeranda() {
+            const totalStudents = processedData.length;
+            let sumMtk = 0;
+            let sumInd = 0;
 
-    // 1. Validasi Keamanan: Kolom Input Masih Kosong
-    if (queryNisn === "") {
-        errorBox.style.display = 'flex';
-        errorBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Harap masukkan nomor NISN Anda terlebih dahulu.';
-        return;
-    }
+            let mtkDist = { Baik: 0, Memadai: 0, Kurang: 0 };
+            let indDist = { Baik: 0, Memadai: 0, Kurang: 0 };
 
-    // 2. Validasi Keamanan: Wajib Mengetik Lengkap Pas 10 Digit
-    if (queryNisn.length !== 10) {
-        errorBox.style.display = 'flex';
-        errorBox.innerHTML = '<i class="fa-solid fa-circle-info"></i> Keamanan Ketat: Masukkan NISN secara lengkap (10 digit angka) untuk membuka dokumen.';
-        return;
-    }
+            processedData.forEach(s => {
+                sumMtk += s.mtk;
+                sumInd += s.ind;
 
-    // 3. Pencocokan Sempurna (Strict Match "===" membuang kesamaan sebagian teks)
-    const resultMatch = RAW_STUDENT_DATA.filter(student => student.nisn === queryNisn);
+                if(mtkDist[s.mtk_pred] !== undefined) mtkDist[s.mtk_pred]++;
+                if(indDist[s.ind_pred] !== undefined) indDist[s.ind_pred]++;
+            });
 
-    // 4. Validasi Keamanan: NISN Salah / Tidak Ada di Database
-    if (resultMatch.length === 0) {
-        errorBox.style.display = 'flex';
-        errorBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Maaf, nomor NISN tidak ditemukan dalam database sekolah. Periksa kembali.';
-        return;
-    }
+            document.getElementById('avg-mtk-kelas').innerText = (sumMtk / totalStudents).toFixed(2);
+            document.getElementById('avg-ind-kelas').innerText = (sumInd / totalStudents).toFixed(2);
 
-    // 5. Sukses Validasi: Jalankan Simulasi Enkripsi Loading
-    loadingBox.style.display = 'flex';
+            renderChartManual('distribusi-mtk-chart', mtkDist, totalStudents, 'bar-baik', 'bar-memadai', 'bar-kurang');
+            renderChartManual('distribusi-ind-chart', indDist, totalStudents, 'bar-baik', 'bar-memadai', 'bar-kurang');
+        }
 
-    setTimeout(() => {
-        loadingBox.style.display = 'none';
-        
-        // Mengunci hasil ke satu-satunya index data yang cocok
-        const student = resultMatch[0];
-        
-        // Buat konten kartu
-        renderKartuHasilIndividu(student);
-        
-        // Tampilkan wadah dokumen amplop ke layar secara eksklusif
-        targetEnvelope.style.display = 'block';
-    }, 1200);
-}
-
-// FUNGSI UNTUK GENERATE KARTU NILAI SISWA
-function renderKartuHasilIndividu(data) {
-    const targetEnvelope = document.getElementById('envelope-target');
-    
-    // Penentuan class badge warna berdasarkan label nilai kompetensi
-    const mBadgeClass = data.m_label.toLowerCase();
-    const bBadgeClass = data.b_label.toLowerCase();
-
-    targetEnvelope.innerHTML = `
-        <div class="student-card">
-            <div class="student-name">${data.name}</div>
-            <div class="student-meta">NISN: ${data.nisn} &bull; Urut Absen: ${data.num}</div>
+        function renderChartManual(elementId, distObj, total, clsBaik, clsMemadai, clsKurang) {
+            const container = document.getElementById(elementId);
             
-            <div class="score-row">
-                <span class="score-label">Matematika</span>
-                <span class="score-value">
-                    ${data.m_score} 
-                    <span class="badge ${mBadgeClass}">${data.m_label}</span>
-                </span>
-            </div>
-            
-            <div class="score-row">
-                <span class="score-label">Bahasa Indonesia</span>
-                <span class="score-value">
-                    ${data.b_score} 
-                    <span class="badge ${bBadgeClass}">${data.b_label}</span>
-                </span>
-            </div>
-        </div>
-    `;
-}
-</script>
+            const pBaik = ((distObj.Baik / total) * 100).toFixed(1);
+            const pMemadai = ((distObj.Memadai / total) * 100).toFixed(1);
+            const pKurang = ((distObj.Kurang / total) * 100).toFixed(1);
 
+            container.innerHTML = `
+                <div class="chart-row">
+                    <div class="chart-label-container">
+                        <span>Baik (${distObj.Baik} Siswa)</span>
+                        <span>${pBaik}%</span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-fill ${clsBaik}" style="width: ${pBaik}%"></div>
+                    </div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label-container">
+                        <span>Memadai (${distObj.Memadai} Siswa)</span>
+                        <span>${pMemadai}%</span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-fill ${clsMemadai}" style="width: ${pMemadai}%"></div>
+                    </div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label-container">
+                        <span>Kurang (${distObj.Kurang} Siswa)</span>
+                        <span>${pKurang}%</span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-fill ${clsKurang}" style="width: ${pKurang}%"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 3. KONTEN LAMAN 2: SISTEM SEARCHING & KETAT NISN LOGIC
+        function prosesBukaAmplop() {
+            const inputField = document.getElementById('input-search-nisn');
+            const targetEnvelope = document.getElementById('envelope-target');
+            const errorBox = document.getElementById('search-error');
+            const loadingBox = document.getElementById('search-loading');
+
+            // Reset View State
+            targetEnvelope.style.display = 'none';
+            errorBox.style.display = 'none';
+
+            const queryNisn = inputField.value.trim();
+
+            // validasi awal: input kosong
+            if (queryNisn === "") {
+                errorBox.style.display = 'flex';
+                errorBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Harap masukkan nomor NISN Anda terlebih dahulu.';
+                return;
+            }
+
+            // PERINTAH BARU: Wajib mengetik 10 digit NISN secara lengkap
+            if (queryNisn.length !== 10) {
+                errorBox.style.display = 'flex';
+                errorBox.innerHTML = '<i class="fa-solid fa-circle-info"></i> NISN harus diisi lengkap sebanyak 10 digit angka.';
+                return;
+            }
+
+            // PERINTAH BARU: Menggunakan perbandingan '===' agar sama persis dan mengeliminasi kesamaan angka awalan
+            const resultMatch = processedData.filter(student => 
+                student.nisn === queryNisn
+            );
+
+            // Jika setelah dicocokkan secara ketat tidak ada data yang pas
+            if (resultMatch.length === 0) {
+                errorBox.style.display = 'flex';
+                errorBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Maaf, nomor NISN tidak ditemukan. Pastikan angka sudah benar.';
+                return;
+            }
+
+            // Aktifkan Efek Loading Dramatis (1,2 detik)
+            loadingBox.style.display = 'flex';
+
+            setTimeout(() => {
+                loadingBox.style.display = 'none';
+                
+                // Ambil data tunggal yang cocok sempurna
+                const student = resultMatch[0];
+                renderKartuHasilIndividu(student);
+                
+                // Tampilkan amplop hasil ujian
+                targetEnvelope.style.display = 'block';
+            }, 1200);
+        }
+
+        function renderKartuHasilIndividu(student) {
+            const targetContainer = document.getElementById('envelope-target');
+            
+            let cardThemeClass = "card-rank-general";
+            let badgeThemeClass = "badge-rank-general";
+            let badgeIcon = `<i class="fa-solid fa-hashtag"></i> Rank`;
+
+            if (student.rank === 1) {
+                cardThemeClass = "card-rank-1";
+                badgeThemeClass = "badge-rank-1";
+                badgeIcon = `<i class="fa-solid fa-trophy"></i> Juara Kelas 1`;
+            } else if (student.rank === 2) {
+                cardThemeClass = "card-rank-2";
+                badgeThemeClass = "badge-rank-2";
+                badgeIcon = `<i class="fa-solid fa-medal"></i> Juara Kelas 2`;
+            } else if (student.rank === 3) {
+                cardThemeClass = "card-rank-3";
+                badgeThemeClass = "badge-rank-3";
+                badgeIcon = `<i class="fa-solid fa-award"></i> Juara Kelas 3`;
+            }
+
+            const getTagClass = (pred) => {
+                if(pred === 'Baik') return 'tag-baik';
+                if(pred === 'Memadai') return 'tag-memadai';
+                return 'tag-kurang';
+            };
+
+            targetContainer.innerHTML = `
+                <div class="result-card ${cardThemeClass}">
+                    
+                    <div class="card-header">
+                        <div class="student-bio">
+                            <h2>${student.nama.toUpperCase()}</h2>
+                            <p>NISN: ${student.nisn}</p>
+                        </div>
+                        <div class="badge-rank ${badgeThemeClass}">
+                            ${badgeIcon} ${student.rank}
+                        </div>
+                    </div>
+
+                    <div class="scores-vertical-stack">
+                        
+                        <div class="score-row-box">
+                            <div class="score-left-info">
+                                <span class="subject-name">Matematika</span>
+                                <span class="score-tag-predikat ${getTagClass(student.mtk_pred)}">${student.mtk_pred}</span>
+                            </div>
+                            <div class="score-right-value">${student.mtk.toFixed(2)}</div>
+                        </div>
+
+                        <div class="score-row-box">
+                            <div class="score-left-info">
+                                <span class="subject-name">Bahasa Indonesia</span>
+                                <span class="score-tag-predikat ${getTagClass(student.ind_pred)}">${student.ind_pred}</span>
+                            </div>
+                            <div class="score-right-value">${student.ind.toFixed(2)}</div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer-average">
+                        <span>Rata-Rata Kombinasi</span>
+                        <span class="final-avg-val">${student.avg.toFixed(2)}</span>
+                    </div>
+
+                </div>
+            `;
+        }
+
+        // 4. ROUTING NAVIGASI LAMAN STATE MANAGEMENT
+        function pindahLaman(namaLaman) {
+            document.querySelectorAll('.app-page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+
+            if (namaLaman === 'home') {
+                document.getElementById('page-home').classList.add('active');
+                document.getElementById('nav-home').classList.add('active');
+            } else if (namaLaman === 'nilaiku') {
+                document.getElementById('page-nilaiku').classList.add('active');
+                document.getElementById('nav-nilaiku').classList.add('active');
+            }
+        }
+
+        window.onload = initAppEngine;
+    </script>
 </body>
 </html>
