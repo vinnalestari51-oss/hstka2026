@@ -1,376 +1,215 @@
-<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasil Tes Kemampuan Akademik 2026 - SMPN 1 Lingga</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Daftar Kolektif Hasil Tes Kemampuan Akademik 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- RESET & GLOBAL STYLES --- */
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #3b82f6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --background: #f8fafc;
+            --text-main: #1e293b;
+        }
+
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background-color: #f0f7ff;
-            color: #1e293b;
+            background-color: var(--background);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
+            padding: 20px;
         }
 
-        /* --- CONTAINER MOBILE-FIRST (MAX 440PX) --- */
-        .container-mobile {
+        .app-container {
             width: 100%;
-            max-width: 440px;
-            min-height: 100vh;
-            background-color: #f8fafc;
-            position: relative;
-            padding: 24px 20px 100px 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            max-width: 500px;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.08);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            min-height: 600px;
         }
 
-        /* --- UTILITY CLASS: MATERIAL 3 EXPRESSIVE GLASS --- */
-        .m3-glass {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 24px;
-            padding: 20px;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.04);
-        }
-
-        /* --- HEADER BRANDING --- */
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 4px;
-        }
-
-        .header-brand .icon-edu {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #2563eb, #3b82f6);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Header Aplikasi */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary), #0f172a);
             color: #ffffff;
-            font-size: 20px;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
+            padding: 24px;
+            text-align: center;
         }
-
-        .header-brand h1 {
-            font-size: 16px;
-            font-weight: 800;
-            color: #1e3a8a;
-            line-height: 1.2;
-            text-transform: uppercase;
+        .app-header h1 {
+            font-size: 1.1rem;
+            font-weight: 600;
             letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+        .app-header p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 4px;
         }
 
-        .header-brand p {
-            font-size: 11px;
-            color: #64748b;
-            font-weight: 500;
-            margin-top: 2px;
+        /* Konten Utama */
+        .app-content {
+            flex: 1;
+            padding: 24px;
+            position: relative;
         }
 
-        /* --- APP PAGES STATE MANAGEMENT --- */
         .app-page {
             display: none;
-            width: 100%;
-            animation: fadeIn 0.4s ease-out;
         }
-
         .app-page.active {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- FIXED BOTTOM NAVBAR --- */
-        .bottom-navbar {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 440px;
-            height: 72px;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-top: 1px solid rgba(226, 232, 240, 0.8);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 999;
-            padding: 0 12px;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            width: 64px;
-            height: 100%;
-            color: #64748b;
-            transition: all 0.25s ease;
-            position: relative;
-        }
-
-        .nav-item i {
-            font-size: 20px;
-            transition: transform 0.2s ease;
-        }
-
-        .nav-item span {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.2px;
-        }
-
-        .nav-item.active {
-            color: #2563eb;
-        }
-
-        .nav-item.active i {
-            transform: translateY(-2px);
-        }
-
-        .nav-item.active::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            width: 28px;
-            height: 4px;
-            background-color: #2563eb;
-            border-radius: 0 0 4px 4px;
-        }
-
-        /* --- KONTEN LAMAN: HOME (STATISTIK ANONIM) --- */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .stat-card {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 16px;
+        /* Glassmorphism Box */
+        .m3-glass {
+            background: #f1f5f9;
+            border-radius: 16px;
+            padding: 20px;
             border: 1px solid #e2e8f0;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .stat-card .label {
-            font-size: 11px;
-            font-weight: 600;
-            color: #64748b;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .stat-card .value {
-            font-size: 24px;
-            font-weight: 800;
-            color: #1e293b;
-        }
-
-        .section-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #334155;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* CUSTOM CSS MANUAL PROGRESS BAR (GRAFIK DISTRIBUSI) */
-        .chart-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 8px;
-        }
-
-        .chart-row {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .chart-label-container {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            font-weight: 600;
-            color: #475569;
-        }
-
-        .bar-container {
-            width: 100%;
-            height: 10px;
-            background: #e2e8f0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .bar-fill {
-            height: 100%;
-            border-radius: 10px;
-            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .bar-baik { background: linear-gradient(90deg, #10b981, #34d399); }
-        .bar-memadai { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
-        .bar-kurang { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
-
-        /* --- KONTEN LAMAN: NILAIKU (PENCARIAN AMPLUP) --- */
-        .search-box {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
         }
 
         .search-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: #1e3a8a;
-            text-align: center;
-            line-height: 1.4;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--primary);
         }
 
+        /* Input Wrapper */
         .input-wrapper {
             position: relative;
-            width: 100%;
-        }
-
-        .input-wrapper i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-            font-size: 16px;
-        }
-
-        .input-nisn {
-            width: 100%;
-            height: 54px;
-            background: #ffffff;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 0 16px 0 46px;
-            font-size: 15px;
-            font-weight: 600;
-            color: #1e293b;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        .input-nisn:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
-        }
-
-        .btn-search {
-            width: 100%;
-            height: 52px;
-            background: linear-gradient(135deg, #1e3a8a, #2563eb);
-            border: none;
-            border-radius: 16px;
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
             display: flex;
             align-items: center;
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 0 14px;
+            transition: all 0.3s ease;
+        }
+        .input-wrapper:focus-within {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+        .input-wrapper i {
+            color: #94a3b8;
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+        .input-nisn {
+            width: 100%;
+            border: none;
+            outline: none;
+            padding: 14px 0;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+        /* Menghilangkan panah spinner input number */
+        .input-nisn::-webkit-outer-spin-button,
+        .input-nisn::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Tombol Utama */
+        .btn-search {
+            width: 100%;
+            background: var(--primary-light);
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-top: 14px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: flex;
             justify-content: center;
-            gap: 10px;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-            transition: transform 0.1s ease, opacity 0.2s;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-search:hover {
+            background: #2563eb;
         }
 
-        .btn-search:active {
-            transform: scale(0.98);
+        /* Error Message */
+        .error-message {
+            display: none;
+            background: #fef2f2;
+            border: 1px solid #fca5a5;
+            color: var(--danger);
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            gap: 8px;
+            align-items: center;
         }
 
-        /* --- ANIMASI LOADING DRAMATIS --- */
+        /* Loading Spinner */
         .loading-container {
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 20px;
-            gap: 16px;
+            padding: 30px 0;
+            gap: 12px;
         }
-
         .spinner {
-            width: 48px;
-            height: 48px;
-            border: 5px solid rgba(37, 99, 235, 0.1);
-            border-top-color: #2563eb;
+            width: 36px;
+            height: 36px;
+            border: 4px solid #e2e8f0;
+            border-top-color: var(--primary-light);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 0.8s linear infinite;
         }
-
         .pulse-text {
-            font-size: 13px;
-            font-weight: 600;
-            color: #2563eb;
-            animation: pulse 1.2s infinite ease-in-out;
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 500;
         }
 
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; transform: scale(0.98); }
-            50% { opacity: 1; transform: scale(1.02); }
-        }
-
-        /* --- SURPRISE BOUNCE EFFECT CARD --- */
+        /* Kartu Nilai Hasil Akhir */
         .result-envelope {
             display: none;
-            width: 100%;
+            margin-top: 20px;
+            animation: slideUp 0.4s ease-out;
         }
-
-        .result-card {
-            width: 100%;
-            border-radius: 24px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            position: relative;
-            overflow: hidden;
-            animation: surprise
+        .student-card {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .student-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .student-meta {
+            font-size: 0.8rem;
+            color: #64748
