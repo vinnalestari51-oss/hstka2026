@@ -555,7 +555,7 @@
             </div>
             <div>
                 <h1>SMP Negeri 1 Lingga</h1>
-                <p>Kolektif Hasil Tes Kemampuan Akademik 2026</p>
+                <p>Hasil Tes Kemampuan Akademik 2026</p>
             </div>
         </div>
 
@@ -597,7 +597,7 @@
         <div id="page-nilaiku" class="app-page active">
             
             <div class="m3-glass search-box">
-                <div class="search-title">Masukkan NISN Siswa Untuk Membuka Amplop Hasil Kelulusan</div>
+                <div class="search-title">Masukkan NISN Siswa Untuk Membuka Amplop Hasil TKA</div>
                 
                 <div class="input-wrapper">
                     <i class="fa-solid fa-id-card-clip"></i>
