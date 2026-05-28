@@ -597,7 +597,7 @@
         <div id="page-nilaiku" class="app-page active">
             
             <div class="m3-glass search-box">
-                <div class="search-title">Masukkan 10 Digit NISN Siswa Secara Lengkap Untuk Membuka Amplop Nilai</div>
+                <div class="search-title">Masukkan NISN Siswa Untuk Membuka Amplop Hasil Kelulusan</div>
                 
                 <div class="input-wrapper">
                     <i class="fa-solid fa-id-card-clip"></i>
@@ -637,7 +637,7 @@
     </div>
 
     <script>
-        // DATA DARI SELURUH 88 SISWA DI PDF
+        // DATA EXTRACED & CLEANED DARI SELURUH 88 SISWA DI PDF
         const RAW_STUDENT_DATA = [
             { no: 1, nisn: "0113067688", nama: "Riska Sari", mtk: 20.00, mtk_pred: "Kurang", ind: 60.00, ind_pred: "Memadai" },
             { no: 2, nisn: "0113559822", nama: "MECA ADELYA CAHYANI", mtk: 50.00, mtk_pred: "Memadai", ind: 90.00, ind_pred: "Baik" },
@@ -656,7 +656,7 @@
             { no: 15, nisn: "0086621206", nama: "Arya Imam Risnanda", mtk: 43.33, mtk_pred: "Memadai", ind: 80.00, ind_pred: "Baik" },
             { no: 16, nisn: "0118621492", nama: "Raisa Idadi", mtk: 30.00, mtk_pred: "Kurang", ind: 66.67, ind_pred: "Memadai" },
             { no: 17, nisn: "0116566978", nama: "Kafha Azri Ilhamsyah", mtk: 43.33, mtk_pred: "Memadai", ind: 73.33, ind_pred: "Memadai" },
-            { no: 18, nisn: "0114962861", nama: "Muhammad Erwan Zarka", mtk: 36.67, mtk_pred: "Memadai", ind: 63.33, ind_pred: "Memadai" },
+            { no: 18, nisn: "0114962861", nama: "Muhammad Erwan Zarka", mtk: 36.67, mtk_pred: "Memadai", ind: 63.33, mtk_pred: "Memadai" },
             { no: 19, nisn: "0105152266", nama: "Adonia Najla Raissa", mtk: 40.00, mtk_pred: "Memadai", ind: 66.67, ind_pred: "Memadai" },
             { no: 20, nisn: "0099948557", nama: "KHASBI NOVALDI", mtk: 36.67, mtk_pred: "Memadai", ind: 56.67, ind_pred: "Memadai" },
             { no: 21, nisn: "0107778998", nama: "Sabrina Embun Pertiwi", mtk: 40.00, mtk_pred: "Memadai", ind: 60.00, ind_pred: "Memadai" },
@@ -716,7 +716,7 @@
             { no: 75, nisn: "0111226881", nama: "usman", mtk: 43.33, mtk_pred: "Memadai", ind: 60.00, ind_pred: "Memadai" },
             { no: 76, nisn: "0106504994", nama: "ZURRIATI FARHANA", mtk: 26.67, mtk_pred: "Kurang", ind: 76.67, ind_pred: "Baik" },
             { no: 77, nisn: "0116283543", nama: "Erina Nazira", mtk: 43.33, mtk_pred: "Memadai", ind: 63.33, ind_pred: "Memadai" },
-            { no: 78, id: 78, nisn: "0102191383", nama: "WINDA AULIA", mtk: 30.00, mtk_pred: "Kurang", ind: 46.67, ind_pred: "Kurang" },
+            { no: 78, nisn: "0102191383", nama: "WINDA AULIA", mtk: 30.00, mtk_pred: "Kurang", ind: 46.67, ind_pred: "Kurang" },
             { no: 79, nisn: "0113021378", nama: "ARFA", mtk: 43.33, mtk_pred: "Memadai", ind: 63.33, ind_pred: "Memadai" },
             { no: 80, nisn: "0103349505", nama: "Novita Adha Riah", mtk: 46.67, mtk_pred: "Memadai", ind: 53.33, ind_pred: "Memadai" },
             { no: 81, nisn: "0093969948", nama: "NOVRIAN SAPUTRA", mtk: 40.00, mtk_pred: "Memadai", ind: 36.67, ind_pred: "Kurang" },
@@ -731,8 +731,9 @@
 
         let processedData = [];
 
-        // 1. ENGINE INISIALISASI DATA
+        // 1. ENGINE INISIALISASI DATA: RATARATA & CODES FOR RANKING
         function initAppEngine() {
+            // Hitung rata-rata kombinasi individu
             processedData = RAW_STUDENT_DATA.map(student => {
                 const kombinasiAvg = (student.mtk + student.ind) / 2;
                 return {
@@ -744,7 +745,7 @@
             // Urutkan berdasarkan rata-rata tertinggi ke terendah
             processedData.sort((a, b) => b.avg - a.avg);
 
-            // Tetapkan urutan peringkat
+            // Tetapkan urutan peringkat (Rank) otomatis
             processedData = processedData.map((student, index) => {
                 return {
                     ...student,
@@ -752,6 +753,7 @@
                 };
             });
 
+            // Kalkulasi Statistik Utama & Render Laman Beranda
             hitungStatistikBeranda();
         }
 
@@ -768,14 +770,18 @@
                 sumMtk += s.mtk;
                 sumInd += s.ind;
 
+                // Distribusi Kategori
                 if(mtkDist[s.mtk_pred] !== undefined) mtkDist[s.mtk_pred]++;
                 if(indDist[s.ind_pred] !== undefined) indDist[s.ind_pred]++;
             });
 
+            // Render nilai rata-rata global kelas
             document.getElementById('avg-mtk-kelas').innerText = (sumMtk / totalStudents).toFixed(2);
             document.getElementById('avg-ind-kelas').innerText = (sumInd / totalStudents).toFixed(2);
 
+            // Render Grafik Batang Persentase Kustom Matematika
             renderChartManual('distribusi-mtk-chart', mtkDist, totalStudents, 'bar-baik', 'bar-memadai', 'bar-kurang');
+            // Render Grafik Batang Persentase Kustom Bahasa Indonesia
             renderChartManual('distribusi-ind-chart', indDist, totalStudents, 'bar-baik', 'bar-memadai', 'bar-kurang');
         }
 
@@ -817,7 +823,7 @@
             `;
         }
 
-        // 3. KONTEN LAMAN 2: SISTEM SEARCHING & KETAT NISN LOGIC
+        // 3. KONTEN LAMAN 2: SISTEM SEARCHING & SURPRISE LOGIC ENGINE
         function prosesBukaAmplop() {
             const inputField = document.getElementById('input-search-nisn');
             const targetEnvelope = document.getElementById('envelope-target');
@@ -830,43 +836,34 @@
 
             const queryNisn = inputField.value.trim();
 
-            // validasi awal: input kosong
             if (queryNisn === "") {
                 errorBox.style.display = 'flex';
                 errorBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Harap masukkan nomor NISN Anda terlebih dahulu.';
                 return;
             }
 
-            // PERINTAH BARU: Wajib mengetik 10 digit NISN secara lengkap
-            if (queryNisn.length !== 10) {
-                errorBox.style.display = 'flex';
-                errorBox.innerHTML = '<i class="fa-solid fa-circle-info"></i> NISN harus diisi lengkap sebanyak 10 digit angka.';
-                return;
-            }
-
-            // PERINTAH BARU: Menggunakan perbandingan '===' agar sama persis dan mengeliminasi kesamaan angka awalan
+            // Real-time Filtering logic menggunakan .filter() dan pencocokan string .includes()
             const resultMatch = processedData.filter(student => 
-                student.nisn === queryNisn
+                student.nisn.toUpperCase().includes(queryNisn.toUpperCase())
             );
 
-            // Jika setelah dicocokkan secara ketat tidak ada data yang pas
             if (resultMatch.length === 0) {
                 errorBox.style.display = 'flex';
-                errorBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Maaf, nomor NISN tidak ditemukan. Pastikan angka sudah benar.';
+                errorBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Maaf, NISN tidak ditemukan. Periksa kembali angka yang dimasukkan.';
                 return;
             }
 
-            // Aktifkan Efek Loading Dramatis (1,2 detik)
+            // Aktifkan Efek Loading Dramatis (Kunci Waktu: 1200ms)
             loadingBox.style.display = 'flex';
 
             setTimeout(() => {
                 loadingBox.style.display = 'none';
                 
-                // Ambil data tunggal yang cocok sempurna
+                // Ambil data kecocokan pertama
                 const student = resultMatch[0];
                 renderKartuHasilIndividu(student);
                 
-                // Tampilkan amplop hasil ujian
+                // Munculkan amplop dengan Bounce Surprise Effect
                 targetEnvelope.style.display = 'block';
             }, 1200);
         }
@@ -878,6 +875,7 @@
             let badgeThemeClass = "badge-rank-general";
             let badgeIcon = `<i class="fa-solid fa-hashtag"></i> Rank`;
 
+            // Penentuan Desain Gradasi Spesifik Sesuai Juara Kelas
             if (student.rank === 1) {
                 cardThemeClass = "card-rank-1";
                 badgeThemeClass = "badge-rank-1";
@@ -892,6 +890,7 @@
                 badgeIcon = `<i class="fa-solid fa-award"></i> Juara Kelas 3`;
             }
 
+            // Pemetaan Class Warna Tag Predikat Mapel
             const getTagClass = (pred) => {
                 if(pred === 'Baik') return 'tag-baik';
                 if(pred === 'Memadai') return 'tag-memadai';
@@ -942,9 +941,11 @@
 
         // 4. ROUTING NAVIGASI LAMAN STATE MANAGEMENT
         function pindahLaman(namaLaman) {
+            // Hilangkan status aktif di semua halaman & tombol nav
             document.querySelectorAll('.app-page').forEach(page => page.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
 
+            // Aktifkan target halaman dan tombol nav pilihan
             if (namaLaman === 'home') {
                 document.getElementById('page-home').classList.add('active');
                 document.getElementById('nav-home').classList.add('active');
@@ -954,6 +955,7 @@
             }
         }
 
+        // Jalankan Inisialisasi Engine Saat Dokumen Siap
         window.onload = initAppEngine;
     </script>
 </body>
